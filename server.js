@@ -1,7 +1,3 @@
-//Remove api key if in production
-// if (process.env.NODE_ENV !== 'production') {
-//   require('dotenv').config();
-// }
 require('dotenv').config();
 
 const DARKSKY_API_KEY = process.env.DARKSKY_API_KEY;

@@ -20,7 +20,7 @@ searchBox.addListener('places_changed', () => {
     })
   }).then(res =>
     res.json().then(data => {
-      console.log(data);
+      // console.log(data);
       setWeatherData(data, place.formatted_address);
     })
   );
@@ -106,7 +106,7 @@ function setWeatherData(data, place) {
   let offset = data.offset;
   let hours = dateObj.getUTCHours();
   let mins = zero(dateObj.getUTCMinutes());
-  console.log(mins);
+  // console.log(mins);
   let offsetHours = hours + offset;
   //MONTH/DAYS
   let month = dateObj.getUTCMonth();
@@ -143,7 +143,7 @@ function setWeatherData(data, place) {
     return offsetHours;
     // console.log(offsetHours);
   }
-  console.log(`${offsetHours}:${mins}`);
+  // console.log(`${offsetHours}:${mins}`);
 
   //*** FRONT SIDE ELEMENTS ***//
   locationEl.textContent = place;
