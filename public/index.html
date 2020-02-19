@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+
+    <script
+      defer
+      type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAv7RY9IgwVwVXk0aW6nfnyvsUxzq11CzM&libraries=places"
+    ></script>
+    <!-- Places API Key restricted to this Heroku-app website -->
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/skycons/1396634940/skycons.min.js"
+    ></script>
+    <link rel="icon" type="image/svg" href="img/logo.png" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700&display=swap"
+      rel="stylesheet"
+    />
+    <title>Weather App Practice</title>
+  </head>
+  <body class="body body--bg">
+    <div class="xlarge-icon__container" data-xl-icon>
+      <img src="img/rain.svg" alt="xlarge current weather icon" />
+    </div>
+
+    <div class="container">
+      <!-- CONTAINER FRONT SIDE -->
+      <div class="container__side container__side--front">
+        <div class="container--bg-front">
+          <span class="flip-icon__container">
+            <button class="flip-icon__btn" onclick="flip()">
+              <img
+                src="img/flip.svg"
+                alt="flip side icon"
+                class="flip-icon__icon"
+              />
+            </button>
+          </span>
+          <!-- SEARCH BAR -->
+          <div class="searchbar">
+            <input
+              type="text"
+              class="searchbar__search-input"
+              placeholder="Enter a city"
+              data-city-search
+            />
+          </div>
+          <!-- TOP SECTION -->
+          <div class="container__header">
+            <h3 class="container__header--location" data-location>Boston</h3>
+            <h4 class="container__header--day med-text">
+              <span class="container__header--month" data-month>Jan</span> |
+              <span data-date> Tue 04 </span>
+            </h4>
+          </div>
+          <!-- MIDDLE SECTION -->
+          <div class="container__main">
+            <div class="container__main--icon-desc">
+              <h2 class="container__main--description" data-status>
+                Light Rain
+              </h2>
+              <div class="container__main--icon" data-main-icon>
+                <img src="img/rain.svg" alt="current weather icon" />
+              </div>
+            </div>
+
+            <h1 class="container__main--degree" data-main-temp>
+              35˚
+              <p class="container__main--degree-scale" data-scale>F</p>
+            </h1>
+            <h4 class="container__main--feelslike med-text">
+              Feels like <span data-feelslike> 26</span>˚
+            </h4>
+          </div>
+
+          <!-- BOTTOM SECTION -->
+          <div class="container__footer">
+            <div class="detail-container">
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high detail-container--data"
+                  data-hightemp
+                >
+                  45˚
+                </div>
+                <div
+                  class="highlow-container__low detail-container--data"
+                  data-lowtemp
+                >
+                  32˚
+                </div>
+              </div>
+            </div>
+            <div class="detail-container">
+              <img
+                src="img/precipitation.svg"
+                alt="precipitation icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Precipitation</h5>
+              <h5 class="detail-container--data" data-precipitation>
+                80%
+              </h5>
+            </div>
+
+            <div class="detail-container">
+              <img
+                src="img/wind.svg"
+                alt="wind icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Wind</h5>
+              <h5 class="detail-container--data" data-wind>
+                13mph
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTAINER BACK SIDE  -->
+      <div class="container__side container__side--back ">
+        <div class="container--bg-back">
+          <span class="flip-icon__container">
+            <button class="flip-icon__btn">
+              <img
+                src="img/flip.svg"
+                alt="flip side icon"
+                class="flip-icon__icon"
+                onclick="flip()"
+              />
+            </button>
+          </span>
+          <div class="row-title"><span>More Details</span></div>
+          <!-- ROW ONE -->
+          <div class="detail-row">
+            <div class="detail-container">
+              <img
+                src="img/humidity.svg"
+                alt="humidity icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Humidity</h5>
+              <h5 class="detail-container--data" data-humidity>
+                54%
+              </h5>
+            </div>
+            <div class="detail-container">
+              <img
+                src="img/dewpoint.svg"
+                alt="dewpoint icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Dew Point</h5>
+              <h5 class="detail-container--data" data-dewpoint>
+                20˚
+              </h5>
+            </div>
+            <div class="detail-container">
+              <img
+                src="img/pressure.svg"
+                alt="air pressure icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Pressure</h5>
+              <h5 class="detail-container--data" data-pressure>
+                30.14in
+              </h5>
+            </div>
+          </div>
+          <!-- ROW TWO -->
+          <div class="detail-row">
+            <div class="detail-container">
+              <img
+                src="img/uv.svg"
+                alt="uv index icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">UV Index</h5>
+              <h5 class="detail-container--data">
+                <span data-uv>2</span> of 10
+              </h5>
+            </div>
+            <div class="detail-container">
+              <img
+                src="img/sunrise.svg"
+                alt="sunrise icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Sunrise</h5>
+              <h5 class="detail-container--data" data-sunrise>
+                6.40am
+              </h5>
+            </div>
+            <div class="detail-container">
+              <img
+                src="img/sunset.svg"
+                alt="sunset icon"
+                class="detail-container--icon"
+              />
+              <h5 class="detail-container--title">Sunset</h5>
+              <h5 class="detail-container--data" data-sunset>
+                5.17
+              </h5>
+            </div>
+          </div>
+
+          <!-- DAILY FORECAST SECTION -->
+          <div class="row-title row-title__forecast">
+            <span>Daily Forecast</span>
+          </div>
+          <div class="forecast-container">
+            <!-- DAY 01 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-1>Wed <br />05</p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-1>
+                  80%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-1>
+                <img src="img/cloudy.svg" alt="forecast daily icon" />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-1
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-1
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+            <!-- DAY 02 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-2>
+                  Thur<br />
+                  06
+                </p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-2>
+                  0%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-2>
+                <img src="img/clear-day.svg" alt="forecast daily icon" />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-2
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-2
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+
+            <!-- DAY 03 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-3>Fri <br />07</p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-3>
+                  10%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-3>
+                <img
+                  src="img/partly-cloudy-day.svg"
+                  alt="forecast daily icon"
+                />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-3
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-3
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+
+            <!-- DAY 04 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-4>
+                  Sat<br />
+                  08
+                </p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-4>
+                  30%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-4>
+                <img src="img/fog.svg" alt="forecast daily icon" />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-4
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-4
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+
+            <!-- DAY 05 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-5>Sun <br />09</p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-5>
+                  0%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-5>
+                <img src="img/snow.svg" alt="forecast daily icon" />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-5
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-5
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+
+            <!-- DAY 06 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-6>Mon <br />10</p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-6>
+                  0%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-6>
+                <img src="img/sleet.svg" alt="forecast daily icon" />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-6
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-6
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+
+            <!-- DAY 07 -->
+            <div class="forecast-container__column">
+              <div class="forecast--day-container">
+                <p class="forecast--day" data-daily-day-7>Tue <br />11</p>
+              </div>
+              <div class="forecast--precip-container">
+                <img
+                  src="img/precip-daily.svg"
+                  alt="daily precipitation icon"
+                  class="forecast--precip-icon"
+                />
+                <div class="forecast--precip" data-daily-precipitation-7>
+                  100%
+                </div>
+              </div>
+              <div class="forecast--icon" data-daily-icon-7>
+                <img src="img/rain.svg" alt="forecast daily icon" />
+              </div>
+              <div class="highlow-container">
+                <div
+                  class="highlow-container__high forecast--highlow"
+                  data-daily-hightemp-7
+                >
+                  49˚
+                </div>
+
+                <div
+                  class="highlow-container__low forecast--highlow"
+                  data-daily-lowtemp-7
+                >
+                  33˚
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ATTRIBUTION -->
+          <p class="attribute">
+            Powered by
+            <a
+              href="https://darksky.net/dev"
+              target="_blank"
+              class="attribute--link"
+              >Dark Sky</a
+            >
+          </p>
+          <p class="attribute">
+            <a
+              href="https://www.flaticon.com/authors/vitaly-gorbachev"
+              target="_blank"
+              class="attribute--link"
+              >Vitaly Gorbachev</a
+            >
+            /
+            <a
+              href="https://www.flaticon.com/home"
+              target="_blank"
+              class="attribute--link"
+              >Flaticon</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <script defer src="app.js"></script>
+  </body>
+</html>
