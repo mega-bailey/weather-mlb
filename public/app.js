@@ -180,7 +180,7 @@ function setWeatherData(data, place) {
   pressureEl.textContent = `${(data.currently.pressure / 33.864).toFixed(2)}in`;
   uvIndexEl.textContent = data.currently.uvIndex;
   sunriseEl.innerHTML = `${sunriseOffsetHours}:${sunriseMins}am`;
-  sunsetEl.textContent = `${sunsetOffsetHours}:${sunsetMins}am`;
+  sunsetEl.textContent = `${sunsetOffsetHours}:${sunsetMins}pm`;
 
   //*** FORECAST ***//
   //TODO - FIGURE OUT A LOOP FOR THIS
