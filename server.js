@@ -1,10 +1,9 @@
-// require('dotenv').config();
-
 // const DARKSKY_API_KEY = process.env.DARKSKY_API_KEY;
 const axios = require('axios');
 const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
+require('dotenv').config();
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -14,7 +13,7 @@ app.post('/weather', (req, res) => {
   axios({
     url: url,
     responseType: 'json'
-  }).then(data => res.json(data.data));
+  }).then(data => res.json(data.data.currently));
 });
 
 app.listen(PORT, () => {
