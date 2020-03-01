@@ -1,3 +1,9 @@
+/* // ***** MEDIA BREAKPOINTS ***** //
+$bp-largest: 75em; //1200px
+$bp-large: 62.5em; //1000px
+$bp-medium: 50em; //800px
+$bp-small: 37.5em; //600px */
+
 *,
 *::after,
 *::before {
@@ -13,12 +19,12 @@ html {
 
 body {
   box-sizing: border-box;
-  background-repeat: no-repeat;
-  background-size: cover;
   height: 100vh;
   font-family: 'Lato', sans-serif;
   color: #fff;
   background-color: #2168a4;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* XLARGE BACKGROUND ICON */
@@ -26,7 +32,7 @@ body {
 .xlarge-icon__container {
   position: fixed;
   transform: translate(-20%, -10%);
-  height: 100vh;
+  height: 100%;
 }
 .xlarge-icon__container > img {
   height: 105em;
@@ -49,6 +55,7 @@ body {
   border: none;
   transition: all 0.2s;
 }
+
 .flip-icon__btn:hover {
   cursor: pointer;
   outline: none;
@@ -91,18 +98,17 @@ body {
 }
 
 /* ********** CONTAINER ********** */
+
 .container {
   width: 32em;
   height: 49em;
-  margin: 0 auto;
-  top: 10%;
+  margin: 10% auto;
   overflow: hidden;
   box-shadow: 0px 5px 15px 5px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   perspective: 150rem;
   -moz-perspective: 150rem;
-  position: relative;
   background-color: transparent;
 }
 .container__side {
@@ -115,6 +121,31 @@ body {
 }
 .container__side--back {
   transform: rotateY(180deg);
+}
+@media only screen and (max-width: 600px), only screen and (hover: none) {
+  .flip-icon__container {
+    margin: 2.5rem 2.5rem 0 0;
+  }
+  .flip-icon__btn {
+    display: none;
+    visibility: hidden;
+  }
+  .container {
+    height: 97rem;
+    background-color: inherit;
+  }
+  .container__side {
+    position: relative;
+    backface-visibility: visible;
+  }
+  .container--bg {
+    height: 100%;
+  }
+  .container__side--back {
+    position: absolute;
+    transform: rotateY(0deg);
+    top: 50%;
+  }
 }
 /* ********** CONTAINER FRONT ********** */
 

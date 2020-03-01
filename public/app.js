@@ -258,12 +258,14 @@ function setWeatherData(data, place) {
 
   //BACKGROUND ELEMENTS
   body.className = `${data.currently.icon}`;
-  containerBgFront.className = `${data.currently.icon}`;
-  containerBgBack.className = `${data.currently.icon}`;
+  containerBg.className = `${data.currently.icon}`;
+  // containerBgFront.className = `${data.currently.icon}`;
+  // containerBgBack.className = `${data.currently.icon}`;
 }
 
 //SET BACKROUND ELEMENTS
 const body = document.querySelector('body');
+const containerBg = document.querySelector('.container--bg');
 const containerBgFront = document.querySelector('.container--bg-front');
 const containerBgBack = document.querySelector('.container--bg-back');
 
