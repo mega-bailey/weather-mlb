@@ -20,7 +20,7 @@ searchBox.addListener('places_changed', () => {
     })
   }).then(res =>
     res.json().then(data => {
-      // console.log(data);
+      console.log(data);
       setWeatherData(data, place.formatted_address);
     })
   );
