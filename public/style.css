@@ -130,15 +130,14 @@ body > img {
 @media only screen and (max-width: 600px), only screen and (hover: none) {
   .xlarge-icon__container {
     position: fixed;
-    transform: translate(-15%, -15%);
+    transform: translate(-15%, -25%);
     height: 100%;
     width: 100%;
-    opacity: 10%;
   }
   .xlarge-icon__container > img {
     height: 95%;
     width: 95%;
-    z-index: -1;
+    color: black;
   }
   .flip-icon__container {
     margin: 2.5rem 2.5rem 0 0;
