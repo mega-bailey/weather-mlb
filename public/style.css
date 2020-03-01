@@ -132,11 +132,13 @@ body > img {
     position: fixed;
     transform: translate(-15%, -15%);
     height: 100%;
+    width: 100%;
     opacity: 10%;
   }
   .xlarge-icon__container > img {
-    height: 55em;
-    width: 55em;
+    height: 95%;
+    width: 95%;
+    z-index: -1;
   }
   .flip-icon__container {
     margin: 2.5rem 2.5rem 0 0;
