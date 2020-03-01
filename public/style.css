@@ -19,7 +19,7 @@ html {
 
 body {
   box-sizing: border-box;
-  width: 100vw;
+  height: 100vh;
   font-family: 'Lato', sans-serif;
   color: #fff;
   background-color: #2168a4;
@@ -36,11 +36,12 @@ body > img {
   position: fixed;
   transform: translate(-20%, -10%);
   height: 100%;
+  opacity: 10%;
 }
 .xlarge-icon__container > img {
   height: 105em;
   width: 105em;
-  opacity: 10%;
+  /* opacity: 10%; */
 }
 
 /* BUTTONS */
@@ -391,8 +392,8 @@ body > img {
 /* //CLEAR DAY */
 .clear-day {
   background-image: linear-gradient(to bottom, #0050a1, #9abaaf);
-  padding: 3px;
-  height: 100vh;
+  padding-bottom: 15rem;
+  height: 100%;
 }
 
 /* //CLEAR NIGHT */
@@ -407,7 +408,7 @@ body > img {
   background-image: linear-gradient(to top, #96a5ac, #2e373e);
   padding: 3px;
   height: 100%;
-  background-size: cover;
+  background-size: contain;
 }
 
 /* //FOG */
