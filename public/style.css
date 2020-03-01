@@ -19,12 +19,15 @@ html {
 
 body {
   box-sizing: border-box;
-  height: 100vh;
+  width: 100vw;
   font-family: 'Lato', sans-serif;
   color: #fff;
   background-color: #2168a4;
   background-repeat: no-repeat;
   background-size: cover;
+}
+body > img {
+  opacity: 10%;
 }
 
 /* XLARGE BACKGROUND ICON */
@@ -122,6 +125,8 @@ body {
 .container__side--back {
   transform: rotateY(180deg);
 }
+
+/******** MEDIA QUERY - PHONE ********/
 @media only screen and (max-width: 600px), only screen and (hover: none) {
   .flip-icon__container {
     margin: 2.5rem 2.5rem 0 0;
@@ -132,19 +137,19 @@ body {
   }
   .container {
     height: 97rem;
-    background-color: inherit;
+    background-color: transparent;
   }
   .container__side {
     position: relative;
-    backface-visibility: visible;
   }
   .container--bg {
-    height: 100%;
+    height: 97rem;
   }
   .container__side--back {
     position: absolute;
     transform: rotateY(0deg);
-    top: 50%;
+    top: 49%;
+    padding-bottom: 2rem;
   }
 }
 /* ********** CONTAINER FRONT ********** */
@@ -387,58 +392,69 @@ body {
 .clear-day {
   background-image: linear-gradient(to bottom, #0050a1, #9abaaf);
   padding: 3px;
+  height: 100vh;
 }
 
 /* //CLEAR NIGHT */
 .clear-night {
   background-image: linear-gradient(to top, #131f3a, #0a0c13);
   padding: 3px;
+  height: 100%;
 }
 
 /* //CLOUDY */
 .cloudy {
   background-image: linear-gradient(to top, #96a5ac, #2e373e);
   padding: 3px;
+  height: 100%;
+  background-size: cover;
 }
 
 /* //FOG */
 .fog {
   background-image: linear-gradient(to top, #3a7e9b, #0e394b);
   padding: 3px;
+  height: 100%;
 }
 
 /* //PARTLY CLOUDY DAY */
 .partly-cloudy-day {
   background-image: linear-gradient(to bottom, #004e8c, #5d62a4);
   padding: 3px;
+  height: 100%;
 }
 
 /* //PARTLY CLOUDY NIGHT */
 .partly-cloudy-night {
   background-image: linear-gradient(to top, #262942, #0d1428);
   padding: 3px;
+  height: 100%;
 }
 
 /* //RAIN */
 .rain {
   background-image: linear-gradient(to top, #87719b, #333a63);
   padding: 3px;
+  height: 100%;
 }
 
 /* //SNOW */
 .snow {
   background-image: linear-gradient(to bottom, #6089ab, #97b2ca);
   padding: 3px;
+  height: 100%;
 }
 
 /* //SLEET */
 .sleet {
   background-image: linear-gradient(to bottom, #547782, #869ca2);
   padding: 3px;
+  height: 100%;
 }
 
 /* //WIND */
 .wind {
   background-image: linear-gradient(to top, #c9a7a7, #95606d);
   padding: 3px;
+  height: 100%;
 }

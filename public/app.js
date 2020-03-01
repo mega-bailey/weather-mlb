@@ -266,8 +266,8 @@ function setWeatherData(data, place) {
 //SET BACKROUND ELEMENTS
 const body = document.querySelector('body');
 const containerBg = document.querySelector('.container--bg');
-const containerBgFront = document.querySelector('.container--bg-front');
-const containerBgBack = document.querySelector('.container--bg-back');
+// const containerBgFront = document.querySelector('.container--bg-front');
+// const containerBgBack = document.querySelector('.container--bg-back');
 
 function flip() {
   const containerFront = document.querySelector('.container__side--front');
