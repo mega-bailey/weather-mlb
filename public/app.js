@@ -150,7 +150,7 @@ function setWeatherData(data, place) {
   monthEl.textContent = months[month];
   dateEl.textContent = `${days[day]} ${date}`;
   statusEl.textContent = data.currently.summary;
-  xlIcon.innerHTML = `<img src="img/${data.currently.icon}.svg"/>`;
+  xlIcon.innerHTML = `<img style="color: black;" src="img/${data.currently.icon}.svg"/>`;
   mainIcon.innerHTML = `<img src="img/${data.currently.icon}.svg"/>`;
   feelsLike.textContent = Math.floor(
     Math.round(data.currently.apparentTemperature)

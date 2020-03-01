@@ -1,9 +1,3 @@
-/* // ***** MEDIA BREAKPOINTS ***** //
-$bp-largest: 75em; //1200px
-$bp-large: 62.5em; //1000px
-$bp-medium: 50em; //800px
-$bp-small: 37.5em; //600px */
-
 *,
 *::after,
 *::before {
@@ -36,11 +30,17 @@ body > img {
   position: fixed;
   transform: translate(-20%, -30%);
   height: 100%;
+}
+.xlarge-icon__container > svg {
+  height: 105em;
+  width: 105em;
   opacity: 10%;
+  fill: #fff;
 }
 .xlarge-icon__container > img {
   height: 105em;
   width: 105em;
+  opacity: 10%;
 }
 
 /* BUTTONS */
@@ -126,43 +126,6 @@ body > img {
   transform: rotateY(180deg);
 }
 
-/******** MEDIA QUERY - PHONE ********/
-@media only screen and (max-width: 600px), only screen and (hover: none) {
-  .xlarge-icon__container {
-    position: fixed;
-    transform: translate(-15%, -25%);
-    height: 100%;
-    width: 100%;
-  }
-  .xlarge-icon__container > img {
-    height: 95%;
-    width: 95%;
-    color: black;
-  }
-  .flip-icon__container {
-    margin: 2.5rem 2.5rem 0 0;
-  }
-  .flip-icon__btn {
-    display: none;
-    visibility: hidden;
-  }
-  .container {
-    height: 97rem;
-    background-color: transparent;
-  }
-  .container__side {
-    position: relative;
-  }
-  .container--bg {
-    height: 97rem;
-  }
-  .container__side--back {
-    position: absolute;
-    transform: rotateY(0deg);
-    top: 49%;
-    padding-bottom: 2rem;
-  }
-}
 /* ********** CONTAINER FRONT ********** */
 
 /* CONTAINER HEADER */
@@ -467,4 +430,48 @@ body > img {
   background-image: linear-gradient(to top, #c9a7a7, #95606d);
   padding-bottom: 15rem;
   height: 100%;
+}
+
+/******** MEDIA QUERY - PHONE ********/
+@media only screen and (max-width: 600px), only screen and (hover: none) {
+  .xlarge-icon__container {
+    position: fixed;
+    transform: translate(-15%, -25%);
+    height: 100%;
+    width: 100%;
+  }
+  .xlarge-icon__container > svg {
+    height: 25em;
+    width: 25em;
+    opacity: 10%;
+    fill: rgba(255, 255, 255, 0.4);
+  }
+  .xlarge-icon__container > img {
+    height: 95%;
+    width: 95%;
+  }
+
+  .flip-icon__container {
+    margin: 2.5rem 2.5rem 0 0;
+  }
+  .flip-icon__btn {
+    display: none;
+    visibility: hidden;
+  }
+  .container {
+    height: 97rem;
+    opacity: 0.95;
+  }
+  .container__side {
+    position: relative;
+  }
+  .container--bg {
+    height: 97rem;
+  }
+  .container__side--back {
+    position: absolute;
+    transform: rotateY(0deg);
+    top: 49%;
+    padding-bottom: 2rem;
+  }
 }
