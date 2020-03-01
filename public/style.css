@@ -34,14 +34,13 @@ body > img {
 
 .xlarge-icon__container {
   position: fixed;
-  transform: translate(-20%, -10%);
+  transform: translate(-20%, -30%);
   height: 100%;
   opacity: 10%;
 }
 .xlarge-icon__container > img {
   height: 105em;
   width: 105em;
-  /* opacity: 10%; */
 }
 
 /* BUTTONS */
@@ -129,6 +128,16 @@ body > img {
 
 /******** MEDIA QUERY - PHONE ********/
 @media only screen and (max-width: 600px), only screen and (hover: none) {
+  .xlarge-icon__container {
+    position: fixed;
+    transform: translate(-15%, -15%);
+    height: 100%;
+    opacity: 10%;
+  }
+  .xlarge-icon__container > img {
+    height: 55em;
+    width: 55em;
+  }
   .flip-icon__container {
     margin: 2.5rem 2.5rem 0 0;
   }
@@ -399,63 +408,62 @@ body > img {
 /* //CLEAR NIGHT */
 .clear-night {
   background-image: linear-gradient(to top, #131f3a, #0a0c13);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //CLOUDY */
 .cloudy {
   background-image: linear-gradient(to top, #96a5ac, #2e373e);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
-  background-size: contain;
 }
 
 /* //FOG */
 .fog {
   background-image: linear-gradient(to top, #3a7e9b, #0e394b);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //PARTLY CLOUDY DAY */
 .partly-cloudy-day {
   background-image: linear-gradient(to bottom, #004e8c, #5d62a4);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //PARTLY CLOUDY NIGHT */
 .partly-cloudy-night {
   background-image: linear-gradient(to top, #262942, #0d1428);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //RAIN */
 .rain {
   background-image: linear-gradient(to top, #87719b, #333a63);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //SNOW */
 .snow {
   background-image: linear-gradient(to bottom, #6089ab, #97b2ca);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //SLEET */
 .sleet {
   background-image: linear-gradient(to bottom, #547782, #869ca2);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
 
 /* //WIND */
 .wind {
   background-image: linear-gradient(to top, #c9a7a7, #95606d);
-  padding: 3px;
+  padding-bottom: 15rem;
   height: 100%;
 }
