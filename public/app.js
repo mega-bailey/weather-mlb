@@ -27,19 +27,18 @@ searchBox.addListener('places_changed', () => {
 });
 
 //******* DOM FRONT SIDE ELEMENTS *******//
-const xlIcon = document.querySelector('[data-xl-icon');
-const locationEl = document.querySelector('[data-location]');
-const monthEl = document.querySelector('[data-month]');
-const dateEl = document.querySelector('[data-date]');
-const statusEl = document.querySelector('[data-status]');
-const mainIcon = document.querySelector('[data-main-icon]');
-const currentTempEl = document.querySelector('[data-main-temp]');
-const degreeScale = document.querySelector('[data-scale]');
-const feelsLike = document.querySelector('[data-feelslike]');
-const currentHigh = document.querySelector('[data-hightemp]');
-const currentLow = document.querySelector('[data-lowtemp]');
-const currentPrecip = document.querySelector('[data-precipitation]');
-const currentWindEl = document.querySelector('[data-wind]');
+// const xlIcon = document.querySelector('[data-xl-icon');
+// const monthEl = document.querySelector('[data-month]');
+// const dateEl = document.querySelector('[data-date]');
+// const statusEl = document.querySelector('[data-status]');
+// const mainIcon = document.querySelector('[data-main-icon]');
+// const currentTempEl = document.querySelector('[data-main-temp]');
+// const degreeScale = document.querySelector('[data-scale]');
+// const feelsLike = document.querySelector('[data-feelslike]');
+// const currentHigh = document.querySelector('[data-hightemp]');
+// const currentLow = document.querySelector('[data-lowtemp]');
+// const currentPrecip = document.querySelector('[data-precipitation]');
+// const currentWindEl = document.querySelector('[data-wind]');
 //******* DOM BACK SIDE ELEMENTS *******//
 const humidityEl = document.querySelector('[data-humidity]');
 const dewpointEl = document.querySelector('[data-dewpoint]');
@@ -146,30 +145,46 @@ function setWeatherData(data, place) {
   // console.log(`${offsetHours}:${mins}`);
 
   //*** FRONT SIDE ELEMENTS ***//
-  locationEl.textContent = place;
-  monthEl.textContent = months[month];
-  dateEl.textContent = `${days[day]} ${date}`;
-  statusEl.textContent = data.currently.summary;
-  xlIcon.innerHTML = `<img style="color: black;" src="img/${data.currently.icon}.svg"/>`;
-  mainIcon.innerHTML = `<img src="img/${data.currently.icon}.svg"/>`;
-  feelsLike.textContent = Math.floor(
-    Math.round(data.currently.apparentTemperature)
+  // const xlIcon = document.querySelector('[data-xl-icon');
+  // const monthEl = document.querySelector('[data-month]');
+  // const dateEl = document.querySelector('[data-date]');
+  // const statusEl = document.querySelector('[data-status]');
+  // const mainIcon = document.querySelector('[data-main-icon]');
+  // const currentTempEl = document.querySelector('[data-main-temp]');
+  // const degreeScale = document.querySelector('[data-scale]');
+  // const feelsLike = document.querySelector('[data-feelslike]');
+  // const currentHigh = document.querySelector('[data-hightemp]');
+  // const currentLow = document.querySelector('[data-lowtemp]');
+  // const currentPrecip = document.querySelector('[data-precipitation]');
+  // const currentWindEl = document.querySelector('[data-wind]');
+
+  $('[data-location]').text(place);
+  $('[data-month]').text(months[month]);
+  $('[data-date]').text(`${days[day]} ${date}`);
+  $('[data-status]').text(data.currently.summary);
+
+  $('[data-xl-icon').html(
+    `<img style="color: black;" src="img/${data.currently.icon}.svg"/>`
   );
-  currentTempEl.textContent = `${Math.floor(
-    Math.round(data.currently.temperature)
-  )}˚`;
-  currentHigh.textContent = `${Math.floor(
-    Math.round(data.daily.data[0].temperatureHigh)
-  )}˚`;
-  currentLow.textContent = `${Math.floor(
-    Math.round(data.daily.data[0].temperatureLow)
-  )}˚`;
-  currentWindEl.textContent = `${Math.floor(
-    Math.round(data.currently.windSpeed)
-  )}mph`;
-  currentPrecip.textContent = `${Math.floor(
-    Math.round(data.currently.precipProbability * 100)
-  )}%`;
+  $('[data-main-icon]').html(`<img src="img/${data.currently.icon}.svg"/>`);
+  $('[data-feelslike]').text(
+    Math.floor(Math.round(data.currently.apparentTemperature))
+  );
+  $('[data-main-temp]').text(
+    `${Math.floor(Math.round(data.currently.temperature))}˚`
+  );
+  $('[data-hightemp]').text(
+    `${Math.floor(Math.round(data.daily.data[0].temperatureHigh))}˚`
+  );
+  $('[data-lowtemp]').text(
+    `${Math.floor(Math.round(data.daily.data[0].temperatureLow))}˚`
+  );
+  $('[data-wind]').text(
+    `${Math.floor(Math.round(data.currently.windSpeed))}mph`
+  );
+  $('[data-precipitation]').text(
+    `${Math.floor(Math.round(data.currently.precipProbability * 100))}%`
+  );
   //*** BACK SIDE ELEMENTS ***//
   humidityEl.textContent = `${Math.floor(
     Math.round(data.currently.humidity * 100)

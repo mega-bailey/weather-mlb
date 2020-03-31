@@ -1,3 +1,3 @@
 # weather-app
 
-Weather app using Googles Places API and 7 day forecast
+Weather app using Darksky and Googles Places API and 7 day forecast
