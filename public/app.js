@@ -26,35 +26,14 @@ searchBox.addListener('places_changed', () => {
   );
 });
 
-//******* DOM FRONT SIDE ELEMENTS *******//
-// const xlIcon = document.querySelector('[data-xl-icon');
-// const monthEl = document.querySelector('[data-month]');
-// const dateEl = document.querySelector('[data-date]');
-// const statusEl = document.querySelector('[data-status]');
-// const mainIcon = document.querySelector('[data-main-icon]');
-// const currentTempEl = document.querySelector('[data-main-temp]');
-// const degreeScale = document.querySelector('[data-scale]');
-// const feelsLike = document.querySelector('[data-feelslike]');
-// const currentHigh = document.querySelector('[data-hightemp]');
-// const currentLow = document.querySelector('[data-lowtemp]');
-// const currentPrecip = document.querySelector('[data-precipitation]');
-// const currentWindEl = document.querySelector('[data-wind]');
-//******* DOM BACK SIDE ELEMENTS *******//
-const humidityEl = document.querySelector('[data-humidity]');
-const dewpointEl = document.querySelector('[data-dewpoint]');
-const pressureEl = document.querySelector('[data-pressure]');
-const uvIndexEl = document.querySelector('[data-uv]');
-const sunriseEl = document.querySelector('[data-sunrise]');
-const sunsetEl = document.querySelector('[data-sunset]');
 //******* DOM DAILY FORECAST ELEMENTS *******//
-
-const day1 = document.querySelector('[data-daily-day-1]');
-const day2 = document.querySelector('[data-daily-day-2]');
-const day3 = document.querySelector('[data-daily-day-3]');
-const day4 = document.querySelector('[data-daily-day-4]');
-const day5 = document.querySelector('[data-daily-day-5]');
-const day6 = document.querySelector('[data-daily-day-6]');
-const day7 = document.querySelector('[data-daily-day-7]');
+// const day1 = document.querySelector('[data-daily-day-1]');
+// const day2 = document.querySelector('[data-daily-day-2]');
+// const day3 = document.querySelector('[data-daily-day-3]');
+// const day4 = document.querySelector('[data-daily-day-4]');
+// const day5 = document.querySelector('[data-daily-day-5]');
+// const day6 = document.querySelector('[data-daily-day-6]');
+// const day7 = document.querySelector('[data-daily-day-7]');
 
 const precip1 = document.querySelector('[data-daily-precipitation-1]');
 const precip2 = document.querySelector('[data-daily-precipitation-2]');
@@ -88,7 +67,7 @@ const low5 = document.querySelector('[data-daily-lowtemp-5]');
 const low6 = document.querySelector('[data-daily-lowtemp-6]');
 const low7 = document.querySelector('[data-daily-lowtemp-7]');
 
-const precipitationEl = document.querySelector('[data-precipitation]');
+// const precipitationEl = document.querySelector('[data-precipitation]');
 
 function zero(x) {
   if (x < 10) {
@@ -99,21 +78,54 @@ function zero(x) {
 
 //********** SET DOM ELEMENTS TO API DATA **********//
 function setWeatherData(data, place) {
-  //UTC TIME
-  let timestamp = data.currently.time;
-  let dateObj = new Date(timestamp * 1000);
+  //GET LOCAL CURRENT TIME
+  let d = new Date();
+  let localTime = d.getTime();
+  console.log(localTime); //local timestamp
+  let localOffset = d.getTimezoneOffset() * 60000;
+  let utcTime = localTime + localOffset;
   let offset = data.offset;
-  let hours = dateObj.getUTCHours();
-  let mins = zero(dateObj.getUTCMinutes());
-  // console.log(mins);
-  let offsetHours = hours + offset;
-  //MONTH/DAYS
-  let month = dateObj.getUTCMonth();
-  let day = dateObj.getUTCDay();
-  let date = zero(dateObj.getUTCDate());
+  let locationTimeStamp = utcTime + 3600000 * offset;
+  let locationTime = new Date(locationTimeStamp);
 
-  //SUNRISE UTC TIME
-  let sunriseTimestamp = data.daily.data[0].sunriseTime;
+  //MONTH/DAYS
+  let month = locationTime.getUTCMonth();
+  let day = locationTime.getUTCDay();
+  let date = zero(locationTime.getUTCDate());
+
+  //UTC TIME
+  // let timestamp = data.currently.time;
+  // let offsetNeg = data.offset * -1;
+  // let offsetPos = offsetNeg * 3600;
+  // let offsetTime = new Date(timestamp * 1000);
+  // let offsetTime = timestamp - offsetPos;
+  // console.log(offsetTime);
+  // let currentLocalTime = new Date(offsetTime);
+  // console.log(currentLocalTime);
+  // let time = Math.floor(new Date().getTime() / 1000.0);
+  // console.log(time);
+  // let dateObj = offsetTime - offsetHours; //current local time
+  // let hours = dateObj.getHours();
+  // console.log(dateObj);
+  // let localHour = hours - offset;
+  // console.log(localHour);
+  // let mins = zero(dateObj.getUTCMinutes());
+  // console.log(mins);
+
+  //LOCAL SUNRISE TIME
+  let d = new Date();
+  let localTime = d.getTime();
+  et sunriseTimestamp = data.daily.data[0].sunriseTime;
+  console.log(localTime); //local timestamp
+  let localOffset = d.getTimezoneOffset() * 60000;
+  let utcTime = localTime + localOffset;
+  let offset = data.offset;
+  let locationTimeStamp = utcTime + 3600000 * offset;
+  let locationTime = new Date(locationTimeStamp);
+
+
+
+  // let sunriseTimestamp = data.daily.data[0].sunriseTime;
   let sunriseObj = new Date(sunriseTimestamp * 1000);
   let sunriseHours = sunriseObj.getUTCHours();
   let sunriseMins = zero(sunriseObj.getUTCMinutes());
@@ -121,48 +133,72 @@ function setWeatherData(data, place) {
   //SUNSET UTC TIME
   let sunsetTimestamp = data.daily.data[0].sunsetTime;
   let sunsetObj = new Date(sunsetTimestamp * 1000);
-  let sunsetHours = sunsetObj.getUTCHours() + 12;
+  let sunsetHours = sunsetObj.getUTCHours(); //+12
   let sunsetMins = zero(sunsetObj.getUTCMinutes());
-  let sunsetOffsetHours = sunsetHours + offset;
+  let sunsetOffsetHours = sunsetHours - offset;
 
-  //TODO - THIS NEEDS TO BE REFACTORED TO PULL THE SPECIFIC TIMESTAMP, OTHERWISE THE DAYS WILL NOT RESET AT 30/31 - ALSO NEED TO LOOP
-  day1.innerHTML = `${days[day + 1]}<br/> ${date + 1}`;
-  day2.innerHTML = `${days[day + 2]}<br/> ${date + 2}`;
-  day3.innerHTML = `${days[day + 3]}<br/> ${date + 3}`;
-  day4.innerHTML = `${days[day + 4]}<br/> ${date + 4}`;
-  day5.innerHTML = `${days[day + 5]}<br/> ${date + 5}`;
-  day6.innerHTML = `${days[day + 6]}<br/> ${date + 6}`;
-  day7.innerHTML = `${days[day + 7]}<br/> ${date + 7}`;
+  //FORECAST DAYS (pulling the week day from sunset timestamp and assigning it to Days Array)
+  // let forecastDaysObj = data.daily.data;
+  // for (let [key, value] of Object.entries(forecastDaysObj)) {
+  //   // console.log(key);
+  //   $('.forecast--day').html(`${key}<br/> ${value.time}`);
+  //   // console.log(value.time);
+  //   let forecastDays = document.getElementsByClassName('forecast--day');
+  //   for (let i = 0; i < forecastDays.length; i++) {
+  //     date = value.time[i];
+  //     day = key[i];
+  //   }
+  // }
 
-  // console.log(offsetHours);
-  // function plusTwelve()
-  if (offsetHours < 0) {
-    offsetHours = offsetHours + 12;
-    // console.log(`${offsetHours}:${mins}`);
-    return offsetHours;
-    // console.log(offsetHours);
+  // forEach({ day: data.daily.data[0], time: data.daily.time }, function(
+  //   day,
+  //   time
+  // ) {
+  //   console.log(day);
+  //   console.log(time);
+  // });
+  var weekday = '';
+  let weekdate;
+  // let forecastTimestamp = data.daily.data[i].time;
+  for (let i = 1; i <= 7; i++) {
+    let forecastTimestamp = data.daily.data[i].time;
+    //console.log(forecastTimestamp);
+    let dayObj = new Date(forecastTimestamp * 1000);
+    let weekdays = dayObj.getUTCDay(); //This works! compare to day array to get weekday
+    let arrdays = days[weekdays];
+    // console.log(typeof arrdays); //string
+
+    weekdate = dayObj.getUTCDate();
+    // console.log(weekday);
   }
-  // console.log(`${offsetHours}:${mins}`);
+
+  function addZero(i) {
+    if (weekdate < 10) {
+      i = '0' + i;
+    }
+    return i;
+  }
+
+  //TODO - FIGURE OUT A LOOP FOR THIS
+  // $('[data-daily-day-1]').html(`${weekday[0]}<br/> ${addZero(weekdate)}`);
+  // $('[data-daily-day-2]').html(`${weekday[1]}<br/> ${addZero(weekdate)}`);
+  // $('[data-daily-day-3]').html(`${weekday}<br/> ${addZero(weekdate)}`);
+  // $('[data-daily-day-4]').html(`${weekday}<br/> ${addZero(weekdate)}`);
+  // $('[data-daily-day-5]').html(`${weekday}<br/> ${addZero(weekdate)}`);
+  // $('[data-daily-day-6]').html(`${weekday}<br/> ${addZero(weekdate)}`);
+  // $('[data-daily-day-7]').html(`${weekday}<br/> ${addZero(weekdate)}`);
+  // day2.innerHTML = `${days[day + 2]}<br/> ${date + 2}`;
+  // day3.innerHTML = `${days[day + 3]}<br/> ${date + 3}`;
+  // day4.innerHTML = `${days[day + 4]}<br/> ${date + 4}`;
+  // day5.innerHTML = `${days[day + 5]}<br/> ${date + 5}`;
+  // day6.innerHTML = `${days[day + 6]}<br/> ${date + 6}`;
+  // day7.innerHTML = `${days[day + 7]}<br/> ${date + 7}`;
 
   //*** FRONT SIDE ELEMENTS ***//
-  // const xlIcon = document.querySelector('[data-xl-icon');
-  // const monthEl = document.querySelector('[data-month]');
-  // const dateEl = document.querySelector('[data-date]');
-  // const statusEl = document.querySelector('[data-status]');
-  // const mainIcon = document.querySelector('[data-main-icon]');
-  // const currentTempEl = document.querySelector('[data-main-temp]');
-  // const degreeScale = document.querySelector('[data-scale]');
-  // const feelsLike = document.querySelector('[data-feelslike]');
-  // const currentHigh = document.querySelector('[data-hightemp]');
-  // const currentLow = document.querySelector('[data-lowtemp]');
-  // const currentPrecip = document.querySelector('[data-precipitation]');
-  // const currentWindEl = document.querySelector('[data-wind]');
-
   $('[data-location]').text(place);
   $('[data-month]').text(months[month]);
   $('[data-date]').text(`${days[day]} ${date}`);
   $('[data-status]').text(data.currently.summary);
-
   $('[data-xl-icon').html(
     `<img style="color: black;" src="img/${data.currently.icon}.svg"/>`
   );
@@ -185,17 +221,20 @@ function setWeatherData(data, place) {
   $('[data-precipitation]').text(
     `${Math.floor(Math.round(data.currently.precipProbability * 100))}%`
   );
+
   //*** BACK SIDE ELEMENTS ***//
-  humidityEl.textContent = `${Math.floor(
-    Math.round(data.currently.humidity * 100)
-  )}%`;
-  dewpointEl.textContent = `${Math.floor(
-    Math.round(data.currently.dewPoint)
-  )}˚`;
-  pressureEl.textContent = `${(data.currently.pressure / 33.864).toFixed(2)}in`;
-  uvIndexEl.textContent = data.currently.uvIndex;
-  sunriseEl.innerHTML = `${sunriseOffsetHours}:${sunriseMins}am`;
-  sunsetEl.textContent = `${sunsetOffsetHours}:${sunsetMins}pm`;
+  $('[data-humidity]').text(
+    `${Math.floor(Math.round(data.currently.humidity * 100))}%`
+  );
+  $('[data-dewpoint]').text(
+    `${Math.floor(Math.round(data.currently.dewPoint))}˚`
+  );
+  $('[data-pressure]').text(
+    `${(data.currently.pressure / 33.864).toFixed(2)}in`
+  );
+  $('[data-uv]').text(data.currently.uvIndex);
+  $('[data-sunrise]').text(`${sunriseOffsetHours}:${sunriseMins}am`);
+  $('[data-sunset]').text(`${sunsetOffsetHours}:${sunsetMins}pm`);
 
   //*** FORECAST ***//
   //TODO - FIGURE OUT A LOOP FOR THIS
@@ -220,6 +259,7 @@ function setWeatherData(data, place) {
   precip7.textContent = `${Math.floor(
     Math.round(data.daily.data[7].precipProbability * 100)
   )}%`;
+
   icon1.innerHTML = `<img src="img/${data.daily.data[1].icon}.svg"/>`;
   icon2.innerHTML = `<img src="img/${data.daily.data[2].icon}.svg"/>`;
   icon3.innerHTML = `<img src="img/${data.daily.data[3].icon}.svg"/>`;
