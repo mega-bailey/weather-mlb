@@ -33,85 +33,39 @@ function zero(x) {
   return x;
 }
 
-//********** SET DOM ELEMENTS TO API DATA **********//
+//********** APP FUNCTIONALITY **********//
 function setWeatherData(data, place) {
   //GET LOCAL CURRENT TIME
   let d = new Date();
   let localTime = d.getTime();
-  // console.log(localTime); //local timestamp
   let localOffset = d.getTimezoneOffset() * 60000;
   let utcTime = localTime + localOffset;
   let offset = data.offset;
   let locationTimeStamp = utcTime + 3600000 * offset;
   let locationTime = new Date(locationTimeStamp);
-
-  //MONTH/DAYS
   let month = locationTime.getUTCMonth();
   let day = locationTime.getUTCDay();
   let date = zero(locationTime.getUTCDate());
 
   //LOCAL SUNRISE TIME
-  // let d = new Date();
-  // let localTime = d.getTime();
-  let sunriseTimestamp = data.daily.data[0].sunriseTime;
-  // console.log(localTime); //local timestamp
-  let sunriseLocalOffset = d.getTimezoneOffset() * 60000;
-  let sunriseUtcTime = sunriseTimestamp + sunriseLocalOffset;
-  // let offset = data.offset;
-  let sunriseLocationTimeStamp = sunriseUtcTime + 3600000 * offset;
-  let sunriseLocationTime = new Date(sunriseLocationTimeStamp);
-  let sunriseHour = sunriseLocationTime.getUTCHours();
-  let sunriseMin = sunriseLocationTime.getUTCMinutes();
-  console.log(sunriseHour, sunriseMin);
+  let sunriseTime = data.daily.data[0].sunriseTime * 1000;
+  let sunriseD = new Date(sunriseTime);
+  let sunriseOffset = sunriseD.getTimezoneOffset() * 60000;
+  let sunriseUTC = sunriseTime + sunriseOffset;
+  let sunriseTimeStamp = sunriseUTC + 3600000 * offset;
+  let sunrise = new Date(sunriseTimeStamp);
+  let sunriseHour = sunrise.getHours();
+  let sunriseMins = sunrise.getMinutes();
 
-  // let sunriseTimestamp = data.daily.data[0].sunriseTime;
-  let sunriseObj = new Date(sunriseTimestamp * 1000);
-  let sunriseHours = sunriseObj.getUTCHours();
-  let sunriseMins = zero(sunriseObj.getUTCMinutes());
-  let sunriseOffsetHours = sunriseHours + offset;
-  //SUNSET UTC TIME
-  let sunsetTimestamp = data.daily.data[0].sunsetTime;
-  let sunsetObj = new Date(sunsetTimestamp * 1000);
-  let sunsetHours = sunsetObj.getUTCHours(); //+12
-  let sunsetMins = zero(sunsetObj.getUTCMinutes());
-  let sunsetOffsetHours = sunsetHours - offset;
-
-  // var weekday = '';
-  // let weekdate;
-  // // let forecastTimestamp = data.daily.data[i].time;
-  // for (let i = 1; i <= 7; i++) {
-  //   let forecastTimestamp = data.daily.data[i].time;
-  //   //console.log(forecastTimestamp);
-  //   let dayObj = new Date(forecastTimestamp * 1000);
-  //   let weekdays = dayObj.getUTCDay(); //This works! compare to day array to get weekday
-  //   let arrdays = days[weekdays];
-  //   // console.log(typeof arrdays); //string
-
-  //   weekdate = dayObj.getUTCDate();
-  //   // console.log(weekday);
-  // }
-
-  function addZero(i) {
-    if (weekdate < 10) {
-      i = '0' + i;
-    }
-    return i;
-  }
-
-  //TODO - FIGURE OUT A LOOP FOR THIS
-  // $('[data-daily-day-1]').html(`${weekday[0]}<br/> ${addZero(weekdate)}`);
-  // $('[data-daily-day-2]').html(`${weekday[1]}<br/> ${addZero(weekdate)}`);
-  // $('[data-daily-day-3]').html(`${weekday}<br/> ${addZero(weekdate)}`);
-  // $('[data-daily-day-4]').html(`${weekday}<br/> ${addZero(weekdate)}`);
-  // $('[data-daily-day-5]').html(`${weekday}<br/> ${addZero(weekdate)}`);
-  // $('[data-daily-day-6]').html(`${weekday}<br/> ${addZero(weekdate)}`);
-  // $('[data-daily-day-7]').html(`${weekday}<br/> ${addZero(weekdate)}`);
-  // day2.innerHTML = `${days[day + 2]}<br/> ${date + 2}`;
-  // day3.innerHTML = `${days[day + 3]}<br/> ${date + 3}`;
-  // day4.innerHTML = `${days[day + 4]}<br/> ${date + 4}`;
-  // day5.innerHTML = `${days[day + 5]}<br/> ${date + 5}`;
-  // day6.innerHTML = `${days[day + 6]}<br/> ${date + 6}`;
-  // day7.innerHTML = `${days[day + 7]}<br/> ${date + 7}`;
+  //LOCAL SUNSET TIME
+  let sunsetTime = data.daily.data[0].sunsetTime * 1000;
+  let sunsetD = new Date(sunsetTime);
+  let sunsetOffset = sunsetD.getTimezoneOffset() * 60000;
+  let sunsetUTC = sunsetTime + sunsetOffset;
+  let sunsetTimeStamp = sunsetUTC + 3600000 * offset;
+  let sunset = new Date(sunsetTimeStamp);
+  let sunsetHour = sunset.getHours() - 12;
+  let sunsetMins = sunset.getMinutes();
 
   //*** FRONT SIDE ELEMENTS ***//
   $('[data-location]').text(place);
@@ -152,12 +106,26 @@ function setWeatherData(data, place) {
     `${(data.currently.pressure / 33.864).toFixed(2)}in`
   );
   $('[data-uv]').text(data.currently.uvIndex);
-  $('[data-sunrise]').text(`${sunriseOffsetHours}:${sunriseMins}am`);
-  $('[data-sunset]').text(`${sunsetOffsetHours}:${sunsetMins}pm`);
+  $('[data-sunrise]').text(`${sunriseHour}:${zero(sunriseMins)}am`);
+  $('[data-sunset]').text(`${sunsetHour}:${zero(sunsetMins)}pm`);
 
   //*** FORECAST ELEMENTS ***//
   for (let i = 1; i <= 7; i++) {
-    // $(`[data-daily-day-${i}]`).html(`${weekday}<br/> ${addZero(weekdate)}`);
+    //LOOP THROUGH FORECAST LOCAL DAYS
+    for (let i = 1; i <= 7; i++) {
+      let time = data.daily.data[i].time * 1000;
+      let timeD = new Date(time);
+      let timeOffset = timeD.getTimezoneOffset() * 60000;
+      let timeUTC = time + timeOffset;
+      let timeStamp = timeUTC + 3600000 * offset;
+      let forecastTime = new Date(timeStamp);
+      let forecastDay = forecastTime.getUTCDay();
+      let forecastDate = zero(forecastTime.getUTCDate());
+      $(`[data-daily-day-${i}]`).html(
+        `${days[forecastDay]}<br/> ${forecastDate}`
+      );
+    }
+    //LOOP THROUGH REMAINING FORECAST ELEMENTS
     $(`[data-daily-precipitation-${i}]`).text(
       `${Math.floor(Math.round(data.daily.data[i].precipProbability * 100))}%`
     );
