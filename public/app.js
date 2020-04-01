@@ -26,49 +26,6 @@ searchBox.addListener('places_changed', () => {
   );
 });
 
-//******* DOM DAILY FORECAST ELEMENTS *******//
-// const day1 = document.querySelector('[data-daily-day-1]');
-// const day2 = document.querySelector('[data-daily-day-2]');
-// const day3 = document.querySelector('[data-daily-day-3]');
-// const day4 = document.querySelector('[data-daily-day-4]');
-// const day5 = document.querySelector('[data-daily-day-5]');
-// const day6 = document.querySelector('[data-daily-day-6]');
-// const day7 = document.querySelector('[data-daily-day-7]');
-
-const precip1 = document.querySelector('[data-daily-precipitation-1]');
-const precip2 = document.querySelector('[data-daily-precipitation-2]');
-const precip3 = document.querySelector('[data-daily-precipitation-3]');
-const precip4 = document.querySelector('[data-daily-precipitation-4]');
-const precip5 = document.querySelector('[data-daily-precipitation-5]');
-const precip6 = document.querySelector('[data-daily-precipitation-6]');
-const precip7 = document.querySelector('[data-daily-precipitation-7]');
-
-const icon1 = document.querySelector('[data-daily-icon-1]');
-const icon2 = document.querySelector('[data-daily-icon-2]');
-const icon3 = document.querySelector('[data-daily-icon-3]');
-const icon4 = document.querySelector('[data-daily-icon-4]');
-const icon5 = document.querySelector('[data-daily-icon-5]');
-const icon6 = document.querySelector('[data-daily-icon-6]');
-const icon7 = document.querySelector('[data-daily-icon-7]');
-
-const high1 = document.querySelector('[data-daily-hightemp-1]');
-const high2 = document.querySelector('[data-daily-hightemp-2]');
-const high3 = document.querySelector('[data-daily-hightemp-3]');
-const high4 = document.querySelector('[data-daily-hightemp-4]');
-const high5 = document.querySelector('[data-daily-hightemp-5]');
-const high6 = document.querySelector('[data-daily-hightemp-6]');
-const high7 = document.querySelector('[data-daily-hightemp-7]');
-
-const low1 = document.querySelector('[data-daily-lowtemp-1]');
-const low2 = document.querySelector('[data-daily-lowtemp-2]');
-const low3 = document.querySelector('[data-daily-lowtemp-3]');
-const low4 = document.querySelector('[data-daily-lowtemp-4]');
-const low5 = document.querySelector('[data-daily-lowtemp-5]');
-const low6 = document.querySelector('[data-daily-lowtemp-6]');
-const low7 = document.querySelector('[data-daily-lowtemp-7]');
-
-// const precipitationEl = document.querySelector('[data-precipitation]');
-
 function zero(x) {
   if (x < 10) {
     x = '0' + x;
@@ -81,7 +38,7 @@ function setWeatherData(data, place) {
   //GET LOCAL CURRENT TIME
   let d = new Date();
   let localTime = d.getTime();
-  console.log(localTime); //local timestamp
+  // console.log(localTime); //local timestamp
   let localOffset = d.getTimezoneOffset() * 60000;
   let utcTime = localTime + localOffset;
   let offset = data.offset;
@@ -93,37 +50,19 @@ function setWeatherData(data, place) {
   let day = locationTime.getUTCDay();
   let date = zero(locationTime.getUTCDate());
 
-  //UTC TIME
-  // let timestamp = data.currently.time;
-  // let offsetNeg = data.offset * -1;
-  // let offsetPos = offsetNeg * 3600;
-  // let offsetTime = new Date(timestamp * 1000);
-  // let offsetTime = timestamp - offsetPos;
-  // console.log(offsetTime);
-  // let currentLocalTime = new Date(offsetTime);
-  // console.log(currentLocalTime);
-  // let time = Math.floor(new Date().getTime() / 1000.0);
-  // console.log(time);
-  // let dateObj = offsetTime - offsetHours; //current local time
-  // let hours = dateObj.getHours();
-  // console.log(dateObj);
-  // let localHour = hours - offset;
-  // console.log(localHour);
-  // let mins = zero(dateObj.getUTCMinutes());
-  // console.log(mins);
-
   //LOCAL SUNRISE TIME
-  let d = new Date();
-  let localTime = d.getTime();
-  et sunriseTimestamp = data.daily.data[0].sunriseTime;
-  console.log(localTime); //local timestamp
-  let localOffset = d.getTimezoneOffset() * 60000;
-  let utcTime = localTime + localOffset;
-  let offset = data.offset;
-  let locationTimeStamp = utcTime + 3600000 * offset;
-  let locationTime = new Date(locationTimeStamp);
-
-
+  // let d = new Date();
+  // let localTime = d.getTime();
+  let sunriseTimestamp = data.daily.data[0].sunriseTime;
+  // console.log(localTime); //local timestamp
+  let sunriseLocalOffset = d.getTimezoneOffset() * 60000;
+  let sunriseUtcTime = sunriseTimestamp + sunriseLocalOffset;
+  // let offset = data.offset;
+  let sunriseLocationTimeStamp = sunriseUtcTime + 3600000 * offset;
+  let sunriseLocationTime = new Date(sunriseLocationTimeStamp);
+  let sunriseHour = sunriseLocationTime.getUTCHours();
+  let sunriseMin = sunriseLocationTime.getUTCMinutes();
+  console.log(sunriseHour, sunriseMin);
 
   // let sunriseTimestamp = data.daily.data[0].sunriseTime;
   let sunriseObj = new Date(sunriseTimestamp * 1000);
@@ -137,40 +76,20 @@ function setWeatherData(data, place) {
   let sunsetMins = zero(sunsetObj.getUTCMinutes());
   let sunsetOffsetHours = sunsetHours - offset;
 
-  //FORECAST DAYS (pulling the week day from sunset timestamp and assigning it to Days Array)
-  // let forecastDaysObj = data.daily.data;
-  // for (let [key, value] of Object.entries(forecastDaysObj)) {
-  //   // console.log(key);
-  //   $('.forecast--day').html(`${key}<br/> ${value.time}`);
-  //   // console.log(value.time);
-  //   let forecastDays = document.getElementsByClassName('forecast--day');
-  //   for (let i = 0; i < forecastDays.length; i++) {
-  //     date = value.time[i];
-  //     day = key[i];
-  //   }
+  // var weekday = '';
+  // let weekdate;
+  // // let forecastTimestamp = data.daily.data[i].time;
+  // for (let i = 1; i <= 7; i++) {
+  //   let forecastTimestamp = data.daily.data[i].time;
+  //   //console.log(forecastTimestamp);
+  //   let dayObj = new Date(forecastTimestamp * 1000);
+  //   let weekdays = dayObj.getUTCDay(); //This works! compare to day array to get weekday
+  //   let arrdays = days[weekdays];
+  //   // console.log(typeof arrdays); //string
+
+  //   weekdate = dayObj.getUTCDate();
+  //   // console.log(weekday);
   // }
-
-  // forEach({ day: data.daily.data[0], time: data.daily.time }, function(
-  //   day,
-  //   time
-  // ) {
-  //   console.log(day);
-  //   console.log(time);
-  // });
-  var weekday = '';
-  let weekdate;
-  // let forecastTimestamp = data.daily.data[i].time;
-  for (let i = 1; i <= 7; i++) {
-    let forecastTimestamp = data.daily.data[i].time;
-    //console.log(forecastTimestamp);
-    let dayObj = new Date(forecastTimestamp * 1000);
-    let weekdays = dayObj.getUTCDay(); //This works! compare to day array to get weekday
-    let arrdays = days[weekdays];
-    // console.log(typeof arrdays); //string
-
-    weekdate = dayObj.getUTCDate();
-    // console.log(weekday);
-  }
 
   function addZero(i) {
     if (weekdate < 10) {
@@ -236,93 +155,31 @@ function setWeatherData(data, place) {
   $('[data-sunrise]').text(`${sunriseOffsetHours}:${sunriseMins}am`);
   $('[data-sunset]').text(`${sunsetOffsetHours}:${sunsetMins}pm`);
 
-  //*** FORECAST ***//
-  //TODO - FIGURE OUT A LOOP FOR THIS
-  precip1.textContent = `${Math.floor(
-    Math.round(data.daily.data[1].precipProbability * 100)
-  )}%`;
-  precip2.textContent = `${Math.floor(
-    Math.round(data.daily.data[2].precipProbability * 100)
-  )}%`;
-  precip3.textContent = `${Math.floor(
-    Math.round(data.daily.data[3].precipProbability * 100)
-  )}%`;
-  precip4.textContent = `${Math.floor(
-    Math.round(data.daily.data[4].precipProbability * 100)
-  )}%`;
-  precip5.textContent = `${Math.floor(
-    Math.round(data.daily.data[5].precipProbability * 100)
-  )}%`;
-  precip6.textContent = `${Math.floor(
-    Math.round(data.daily.data[6].precipProbability * 100)
-  )}%`;
-  precip7.textContent = `${Math.floor(
-    Math.round(data.daily.data[7].precipProbability * 100)
-  )}%`;
-
-  icon1.innerHTML = `<img src="img/${data.daily.data[1].icon}.svg"/>`;
-  icon2.innerHTML = `<img src="img/${data.daily.data[2].icon}.svg"/>`;
-  icon3.innerHTML = `<img src="img/${data.daily.data[3].icon}.svg"/>`;
-  icon4.innerHTML = `<img src="img/${data.daily.data[4].icon}.svg"/>`;
-  icon5.innerHTML = `<img src="img/${data.daily.data[5].icon}.svg"/>`;
-  icon6.innerHTML = `<img src="img/${data.daily.data[6].icon}.svg"/>`;
-  icon7.innerHTML = `<img src="img/${data.daily.data[7].icon}.svg"/>`;
-
-  high1.textContent = `${Math.floor(
-    Math.round(data.daily.data[1].temperatureHigh)
-  )}˚`;
-  high2.textContent = `${Math.floor(
-    Math.round(data.daily.data[2].temperatureHigh)
-  )}˚`;
-  high3.textContent = `${Math.floor(
-    Math.round(data.daily.data[3].temperatureHigh)
-  )}˚`;
-  high4.textContent = `${Math.floor(
-    Math.round(data.daily.data[4].temperatureHigh)
-  )}˚`;
-  high5.textContent = `${Math.floor(
-    Math.round(data.daily.data[5].temperatureHigh)
-  )}˚`;
-  high6.textContent = `${Math.floor(
-    Math.round(data.daily.data[6].temperatureHigh)
-  )}˚`;
-  high7.textContent = `${Math.floor(
-    Math.round(data.daily.data[7].temperatureHigh)
-  )}˚`;
-  low1.textContent = `${Math.floor(
-    Math.round(data.daily.data[1].temperatureLow)
-  )}˚`;
-  low2.textContent = `${Math.floor(
-    Math.round(data.daily.data[2].temperatureLow)
-  )}˚`;
-  low3.textContent = `${Math.floor(
-    Math.round(data.daily.data[3].temperatureLow)
-  )}˚`;
-  low4.textContent = `${Math.floor(
-    Math.round(data.daily.data[4].temperatureLow)
-  )}˚`;
-  low5.textContent = `${Math.floor(
-    Math.round(data.daily.data[5].temperatureLow)
-  )}˚`;
-  low6.textContent = `${Math.floor(
-    Math.round(data.daily.data[6].temperatureLow)
-  )}˚`;
-  low7.textContent = `${Math.floor(
-    Math.round(data.daily.data[7].temperatureLow)
-  )}˚`;
+  //*** FORECAST ELEMENTS ***//
+  for (let i = 1; i <= 7; i++) {
+    // $(`[data-daily-day-${i}]`).html(`${weekday}<br/> ${addZero(weekdate)}`);
+    $(`[data-daily-precipitation-${i}]`).text(
+      `${Math.floor(Math.round(data.daily.data[i].precipProbability * 100))}%`
+    );
+    $(`[data-daily-icon-${i}]`).html(
+      `<img src="img/${data.daily.data[i].icon}.svg"/>`
+    );
+    $(`[data-daily-hightemp-${i}]`).text(
+      `${Math.floor(Math.round(data.daily.data[i].temperatureHigh))}˚`
+    );
+    $(`[data-daily-lowtemp-${i}]`).text(
+      `${Math.floor(Math.round(data.daily.data[i].temperatureLow))}˚`
+    );
+  }
 
   //BACKGROUND ELEMENTS
   body.className = `${data.currently.icon}`;
   containerBg.className = `${data.currently.icon}`;
-  // containerBgFront.className = `${data.currently.icon}`;
-  // containerBgBack.className = `${data.currently.icon}`;
 }
 
 //SET BACKROUND ELEMENTS
 const body = document.querySelector('body');
 const containerBg = document.querySelector('.container--bg');
-// const containerBgFront = document.querySelector('.container--bg-front');
-// const containerBgBack = document.querySelector('.container--bg-back');
 
 function flip() {
   const containerFront = document.querySelector('.container__side--front');
